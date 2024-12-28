@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://djqg1k7ty7uvw"]
+
+[ext_resource type="Texture2D" uid="uid://7eq21a8oxfqf" path="res://art/rogue spritesheet calciumtrice.png" id="1_tr1xy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx5u0"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3as6"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adp7d"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poboh"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8hgb"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bnxh"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojj6f"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldfw0"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(224, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbawb"]
+atlas = ExtResource("1_tr1xy")
+region = Rect2(256, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3ok25"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mx5u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3as6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adp7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poboh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8hgb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bnxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojj6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldfw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbawb")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52ws8"]
+size = Vector2(27, 48)
+
+[node name="Player" type="Area2D"]
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_3ok25")
+animation = &"walk"
+frame = 6
+frame_progress = 0.458873
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.5, 0)
+shape = SubResource("RectangleShape2D_52ws8")
