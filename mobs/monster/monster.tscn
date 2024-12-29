@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://beuhqlvjmj008"]
+
+[ext_resource type="Script" path="res://mobs/monster/Monster.cs" id="1_yrypt"]
+[ext_resource type="Texture2D" uid="uid://chg7dd1qr1ctn" path="res://art/mon2_sprite_base.png" id="2_v78c4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a545b"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3i4h"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7c66"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spctr"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkt51"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7lla"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abmbc"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6l7d"]
+atlas = ExtResource("2_v78c4")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rstw3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a545b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3i4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7c66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spctr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkt51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7lla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abmbc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6l7d")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_yrypt")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rstw3")
+animation = &"idle"
+frame = 3
+frame_progress = 0.114245
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
