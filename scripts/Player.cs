@@ -29,14 +29,31 @@ public partial class Player : Area2D
 	public override void _Process(double delta)
 	{
 		var mousePos = GetViewport().GetMousePosition();
-		var playerPosInViewport = GetGlobalTransformWithCanvas().Origin;
-		// var cameraPos = Camera.GetTargetPosition();
+		if (mousePos.X < 0)
+		{
+			mousePos.X = 0;
+		}
+		else if (mousePos.X > ScreenSize.X)
+		{
+			mousePos.X = ScreenSize.X;
+		}
 
+		if (mousePos.Y < 0)
+		{
+			mousePos.Y = 0;
+		}
+		else if (mousePos.Y > ScreenSize.Y)
+		{
+			mousePos.Y = ScreenSize.Y;
+		}
 
-		UpdateCamera(new Vector2((mousePos.X + playerPosInViewport.X) / 2, (mousePos.Y + playerPosInViewport.Y) / 2));
+		var playerGlobalPos = GlobalPosition;
+		var middlePoint = (mousePos + playerGlobalPos) / 2;
+		UpdateCamera(middlePoint);
 
 		var velocity = Vector2.Zero; // The player's movement vector.
 
+		#region Player Inputs
 		if (Input.IsActionPressed("move_right"))
 		{
 			velocity.X += 1;
@@ -56,6 +73,7 @@ public partial class Player : Area2D
 		{
 			velocity.Y -= 1;
 		}
+		#endregion
 
 		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
@@ -66,7 +84,8 @@ public partial class Player : Area2D
 		}
 		else
 		{
-			animatedSprite2D.Stop();
+			animatedSprite2D.Animation = "idle";
+			animatedSprite2D.Play();
 		}
 
 
@@ -79,7 +98,7 @@ public partial class Player : Area2D
 
 		if (velocity.X != 0)
 		{
-			animatedSprite2D.Animation = "walk";
+			animatedSprite2D.Animation = "walk_3";
 			animatedSprite2D.FlipV = false;
 			// See the note below about the following boolean assignment.
 			animatedSprite2D.FlipH = velocity.X < 0;
@@ -87,7 +106,7 @@ public partial class Player : Area2D
 		else if (velocity.Y != 0)
 		{
 			// animatedSprite2D.Animation = "up";
-			animatedSprite2D.Animation = "walk";
+			animatedSprite2D.Animation = "walk_3";
 			//animatedSprite2D.FlipV = velocity.Y > 0;
 		}
 	}
@@ -111,5 +130,10 @@ public partial class Player : Area2D
 	private void UpdateCamera(Vector2 position)
 	{
 		Camera.GlobalPosition = position;
+	}
+
+	private void ReadPlayerInput(Vector2 velocity)
+	{
+
 	}
 }

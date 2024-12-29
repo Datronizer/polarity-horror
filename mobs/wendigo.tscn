@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://nbchdhc66slr"]
+
+[ext_resource type="Script" path="res://scripts/Wendigo.cs" id="1_4kug3"]
+[ext_resource type="Texture2D" uid="uid://d3r3p2bpdgibd" path="res://art/mobs/monsters/monster-antler.png" id="1_sp1ei"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gu8j"]
+atlas = ExtResource("1_sp1ei")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q244d"]
+atlas = ExtResource("1_sp1ei")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52hh3"]
+atlas = ExtResource("1_sp1ei")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j8fe"]
+atlas = ExtResource("1_sp1ei")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1m76j"]
+atlas = ExtResource("1_sp1ei")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_slx08"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gu8j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q244d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52hh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j8fe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1m76j")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kuf8r"]
+size = Vector2(64, 64)
+
+[node name="Wendigo" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_4kug3")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_slx08")
+animation = &"walk"
+frame_progress = 0.759327
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_kuf8r")

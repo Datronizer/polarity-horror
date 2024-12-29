@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://46hjkofgbi81"]
 
-[ext_resource type="Script" path="res://Hud.cs" id="1_xhvni"]
+[ext_resource type="Script" path="res://components/Hud.cs" id="1_xhvni"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_xhvni")
@@ -21,3 +21,9 @@ offset_top = 46.0
 offset_right = 166.0
 offset_bottom = 69.0
 text = "Mouse Viewport Pos: "
+
+[node name="CameraPos" type="Label" parent="."]
+offset_top = 69.0
+offset_right = 166.0
+offset_bottom = 92.0
+text = "Camera Pos: "

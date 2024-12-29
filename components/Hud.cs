@@ -32,7 +32,7 @@ public partial class Hud : CanvasLayer
 
 	public void UpdateCameraPos(Vector2 pos)
 	{
-		GetNode<Label>("PlayerPos").Text = $"Camera: {pos}";
+		GetNode<Label>("CameraPos").Text = $"Camera: {pos}";
 	}
 	
 	public void UpdateMouseViewPos(Vector2 pos)

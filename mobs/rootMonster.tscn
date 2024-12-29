@@ -1,22 +1,22 @@
 [gd_scene load_steps=9 format=3 uid="uid://beuhqlvjmj008"]
 
-[ext_resource type="Script" path="res://mobs/monster/Monster.cs" id="1_yrypt"]
-[ext_resource type="Texture2D" uid="uid://b5fow6k2qeeia" path="res://art/mobs/monsters/monster-meat.png" id="3_xfel8"]
+[ext_resource type="Script" path="res://scripts/RootMonster.cs" id="1_2akxj"]
+[ext_resource type="Texture2D" uid="uid://b5fow6k2qeeia" path="res://art/mobs/monsters/monster-meat.png" id="2_syiwk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_57rxc"]
-atlas = ExtResource("3_xfel8")
+atlas = ExtResource("2_syiwk")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rtt7c"]
-atlas = ExtResource("3_xfel8")
+atlas = ExtResource("2_syiwk")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c15jy"]
-atlas = ExtResource("3_xfel8")
+atlas = ExtResource("2_syiwk")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qrlc5"]
-atlas = ExtResource("3_xfel8")
+atlas = ExtResource("2_syiwk")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rstw3"]
@@ -42,10 +42,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_byd4u"]
 size = Vector2(18.8505, 8.81859)
 
-[node name="Monster" type="RigidBody2D" groups=["mobs"]]
+[node name="RootMonster" type="RigidBody2D" groups=["mobs"]]
 collision_mask = 0
 gravity_scale = 0.0
-script = ExtResource("1_yrypt")
+script = ExtResource("1_2akxj")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -56,7 +56,3 @@ animation = &"walk"
 position = Vector2(1, -4.5)
 scale = Vector2(3.50123, 5.78324)
 shape = SubResource("RectangleShape2D_byd4u")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

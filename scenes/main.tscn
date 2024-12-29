@@ -1,20 +1,19 @@
 [gd_scene load_steps=7 format=3 uid="uid://cchobkkojldml"]
 
-[ext_resource type="PackedScene" uid="uid://djqg1k7ty7uvw" path="res://mobs/player/player.tscn" id="1_5uh38"]
-[ext_resource type="Script" path="res://scenes/Main.cs" id="1_5y3rf"]
-[ext_resource type="PackedScene" uid="uid://beuhqlvjmj008" path="res://mobs/monster/monster.tscn" id="2_42qir"]
+[ext_resource type="PackedScene" uid="uid://djqg1k7ty7uvw" path="res://mobs/player.tscn" id="1_5uh38"]
+[ext_resource type="Script" path="res://scripts/Main.cs" id="1_5y3rf"]
+[ext_resource type="PackedScene" uid="uid://beuhqlvjmj008" path="res://mobs/rootMonster.tscn" id="2_42qir"]
 [ext_resource type="Texture2D" uid="uid://bolej8haq47pg" path="res://art/bg/background.png" id="3_303bj"]
-[ext_resource type="PackedScene" uid="uid://46hjkofgbi81" path="res://hud.tscn" id="4_meq47"]
-
-[sub_resource type="Curve2D" id="Curve2D_hxvsi"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0, 0, 0)
-}
-point_count = 5
+[ext_resource type="PackedScene" uid="uid://46hjkofgbi81" path="res://components/hud.tscn" id="4_meq47"]
+[ext_resource type="PackedScene" uid="uid://nbchdhc66slr" path="res://mobs/wendigo.tscn" id="6_ppfnh"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_5y3rf")
 MobScene = ExtResource("2_42qir")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.35, 0.07, 0.0746666, 1)
 
 [node name="GrassBg" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -23,31 +22,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_303bj")
-stretch_mode = 2
+expand_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("1_5uh38")]
 Speed = 100
 
+[node name="Wendigo" parent="." instance=ExtResource("6_ppfnh")]
+position = Vector2(448, 192)
+
 [node name="MonsterTimer" type="Timer" parent="."]
 wait_time = 0.5
 
-[node name="ScoreTimer" type="Timer" parent="."]
-
-[node name="StartTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(200, 200)
-
-[node name="MonsterPath" type="Path2D" parent="."]
-curve = SubResource("Curve2D_hxvsi")
-
-[node name="MonsterSpawnLocation" type="PathFollow2D" parent="MonsterPath"]
 
 [node name="HUD" parent="." instance=ExtResource("4_meq47")]
 
 [connection signal="Hit" from="Player" to="." method="GameOver"]
 [connection signal="timeout" from="MonsterTimer" to="." method="OnMonsterTimerTimeout"]
-[connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
-[connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
