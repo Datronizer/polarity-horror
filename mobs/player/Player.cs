@@ -5,25 +5,36 @@ public partial class Player : Area2D
 {
 	[Signal]
 	public delegate void HitEventHandler();
-	
-	
+
+
 	[Export]
 	public int Speed = 200; // How fast the player will move (pixels/sec).
 
+
+
 	public Vector2 ScreenSize; // Size of the game window.
+	private Camera2D Camera;
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		ScreenSize = GetViewportRect().Size;
-		
+		Camera = GetNode<Camera2D>("Camera2D");
+
 		//Hide();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		var mousePos = GetViewport().GetMousePosition();
+		var playerPosInViewport = GetGlobalTransformWithCanvas().Origin;
+		// var cameraPos = Camera.GetTargetPosition();
+
+
+		UpdateCamera(new Vector2((mousePos.X + playerPosInViewport.X) / 2, (mousePos.Y + playerPosInViewport.Y) / 2));
+
 		var velocity = Vector2.Zero; // The player's movement vector.
 
 		if (Input.IsActionPressed("move_right"))
@@ -79,5 +90,26 @@ public partial class Player : Area2D
 			animatedSprite2D.Animation = "walk";
 			//animatedSprite2D.FlipV = velocity.Y > 0;
 		}
+	}
+
+	public void Start(Vector2 position)
+	{
+		Position = position;
+		Show();
+		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
+	}
+
+	// We also specified this function name in PascalCase in the editor's connection window.
+	private void OnBodyEntered(Node2D body)
+	{
+		Hide(); // Player disappears after being hit.
+		EmitSignal(SignalName.Hit);
+		// Must be deferred as we can't change physics properties on a physics callback.
+		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+	}
+
+	private void UpdateCamera(Vector2 position)
+	{
+		Camera.GlobalPosition = position;
 	}
 }

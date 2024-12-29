@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7eq21a8oxfqf"
-path="res://.godot/imported/rogue spritesheet calciumtrice.png-4f70883bd75855a858008184da2da8a3.ctex"
+uid="uid://b11ikns4wvcbo"
+path="res://.godot/imported/tree-one.png-146836bc6827863cc4ddb7c144d62687.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/rogue spritesheet calciumtrice.png"
-dest_files=["res://.godot/imported/rogue spritesheet calciumtrice.png-4f70883bd75855a858008184da2da8a3.ctex"]
+source_file="res://art/props/tree-one.png"
+dest_files=["res://.godot/imported/tree-one.png-146836bc6827863cc4ddb7c144d62687.ctex"]
 
 [params]
 

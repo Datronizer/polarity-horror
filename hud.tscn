@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://46hjkofgbi81"]
+
+[ext_resource type="Script" path="res://Hud.cs" id="1_xhvni"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_xhvni")
+
+[node name="MobCount" type="Label" parent="."]
+offset_right = 92.0
+offset_bottom = 23.0
+text = "Mob count: "
+
+[node name="PlayerPos" type="Label" parent="."]
+offset_top = 23.0
+offset_right = 85.0
+offset_bottom = 46.0
+text = "Player Pos:"
+
+[node name="MouseViewPos" type="Label" parent="."]
+offset_top = 46.0
+offset_right = 166.0
+offset_bottom = 69.0
+text = "Mouse Viewport Pos: "

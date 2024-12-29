@@ -1,78 +1,48 @@
-[gd_scene load_steps=12 format=3 uid="uid://beuhqlvjmj008"]
+[gd_scene load_steps=9 format=3 uid="uid://beuhqlvjmj008"]
 
 [ext_resource type="Script" path="res://mobs/monster/Monster.cs" id="1_yrypt"]
-[ext_resource type="Texture2D" uid="uid://chg7dd1qr1ctn" path="res://art/mon2_sprite_base.png" id="2_v78c4"]
+[ext_resource type="Texture2D" uid="uid://b5fow6k2qeeia" path="res://art/mobs/monsters/monster-meat.png" id="3_xfel8"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a545b"]
-atlas = ExtResource("2_v78c4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_57rxc"]
+atlas = ExtResource("3_xfel8")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p3i4h"]
-atlas = ExtResource("2_v78c4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtt7c"]
+atlas = ExtResource("3_xfel8")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e7c66"]
-atlas = ExtResource("2_v78c4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_c15jy"]
+atlas = ExtResource("3_xfel8")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_spctr"]
-atlas = ExtResource("2_v78c4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrlc5"]
+atlas = ExtResource("3_xfel8")
 region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gkt51"]
-atlas = ExtResource("2_v78c4")
-region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f7lla"]
-atlas = ExtResource("2_v78c4")
-region = Rect2(64, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_abmbc"]
-atlas = ExtResource("2_v78c4")
-region = Rect2(128, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l6l7d"]
-atlas = ExtResource("2_v78c4")
-region = Rect2(192, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rstw3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a545b")
+"texture": SubResource("AtlasTexture_57rxc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p3i4h")
+"texture": SubResource("AtlasTexture_rtt7c")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e7c66")
+"texture": SubResource("AtlasTexture_c15jy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_spctr")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 9.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gkt51")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f7lla")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_abmbc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l6l7d")
+"texture": SubResource("AtlasTexture_qrlc5")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 8.0
 }]
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byd4u"]
+size = Vector2(18.8505, 8.81859)
+
+[node name="Monster" type="RigidBody2D" groups=["mobs"]]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_yrypt")
@@ -80,10 +50,13 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rstw3")
-animation = &"idle"
-frame = 3
-frame_progress = 0.114245
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4.5)
+scale = Vector2(3.50123, 5.78324)
+shape = SubResource("RectangleShape2D_byd4u")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

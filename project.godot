@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="polarity"
-run/main_scene="res://mobs/player/player.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://icon.svg"
 
@@ -24,6 +24,10 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="polarity"
+
+[global_group]
+
+mobs="A group of all mobs (excluding player)"
 
 [input]
 
