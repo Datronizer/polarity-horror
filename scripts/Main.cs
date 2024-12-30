@@ -30,6 +30,8 @@ public partial class Main : Node
 		hud.UpdatePlayerPos(GetNode<Player>("Player").GlobalPosition);
 		hud.UpdateCameraPos(GetNode<Camera2D>("Player/Camera2D").GlobalPosition);
 		// hud.UpdatePlayerPos(GetNode<Camera2D>("Player/Camera2D").GetTargetPosition());
+
+		InformPlayerLocation(GetNode<Player>("Player").Position);
 	}
 
 	public void GameOver()
@@ -45,10 +47,15 @@ public partial class Main : Node
 		var startPosition = GetNode<Marker2D>("StartPosition");
 		player.Start(startPosition.Position);
 
-		GD.Print("Starting Timer");
-		GetNode<Timer>("StartTimer").Start();
-				
+		GetNode<Timer>("Wendigo/HuntTimer").Start();
+		GetNode<Wendigo>("Wendigo").Search(player.GlobalPosition);
+
 		hud = GetNode<Hud>("HUD");
+	}
+
+	public void InformPlayerLocation(Vector2 playerPos)
+	{
+		GetNode<Wendigo>("Wendigo").Search(playerPos);
 	}
 
 	// We also specified this function name in PascalCase in the editor's connection window.

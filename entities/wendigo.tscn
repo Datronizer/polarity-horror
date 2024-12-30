@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://nbchdhc66slr"]
+[gd_scene load_steps=11 format=3 uid="uid://nbchdhc66slr"]
 
 [ext_resource type="Script" path="res://scripts/Wendigo.cs" id="1_4kug3"]
 [ext_resource type="Texture2D" uid="uid://d3r3p2bpdgibd" path="res://art/mobs/monsters/monster-antler.png" id="1_sp1ei"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ffono"]
+polygon = PackedVector2Array(10, -32, 5, 7, 8, 26, 4, 42, 25, 62, -52, 62, -63, 45, -45, 12, -39, -22, -26, -38, -13, -41, -23, -56, -16, -57, -6, -54, 4, -52, 14, -49, 26, -48, 18, -35)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gu8j"]
 atlas = ExtResource("1_sp1ei")
@@ -48,24 +51,34 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 9.0
+"speed": 4.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kuf8r"]
-size = Vector2(64, 64)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_clfc5"]
+radius = 20.5
+height = 48.5
 
 [node name="Wendigo" type="RigidBody2D"]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_4kug3")
-metadata/_edit_group_ = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ffono")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_slx08")
 animation = &"walk"
-frame_progress = 0.759327
+frame_progress = 0.364698
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2, 12)
 scale = Vector2(2, 2)
-shape = SubResource("RectangleShape2D_kuf8r")
+shape = SubResource("CapsuleShape2D_clfc5")
+
+[node name="HuntTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="HuntTimer" to="." method="OnHuntTimerTimeout"]
