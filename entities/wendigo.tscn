@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://nbchdhc66slr"]
 
-[ext_resource type="Script" path="res://scripts/Wendigo.cs" id="1_4kug3"]
+[ext_resource type="Script" path="res://scripts/wendigo.gd" id="1_4kug3"]
 [ext_resource type="Texture2D" uid="uid://d3r3p2bpdgibd" path="res://art/mobs/monsters/monster-antler.png" id="1_sp1ei"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ffono"]

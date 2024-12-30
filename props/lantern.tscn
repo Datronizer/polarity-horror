@@ -1,13 +1,17 @@
-[gd_scene load_steps=19 format=3 uid="uid://cbqixbup4pb5t"]
+[gd_scene load_steps=21 format=3 uid="uid://cbqixbup4pb5t"]
 
-[ext_resource type="Script" path="res://scripts/Lantern.cs" id="1_0erlf"]
+[ext_resource type="Script" path="res://scripts/lantern.gd" id="1_0erlf"]
+[ext_resource type="Shader" path="res://scenes/invertColors.gdshader" id="2_2p3mi"]
 [ext_resource type="Texture2D" uid="uid://cictisdgxrvnw" path="res://art/props/flashlight-beam.png" id="2_cu18p"]
 [ext_resource type="Texture2D" uid="uid://cskkj1ey3j7qg" path="res://art/hud/lantern-icon.png" id="3_fonof"]
 [ext_resource type="Texture2D" uid="uid://qlsb3kqg0hvm" path="res://art/hud/flashlight-icon.png" id="4_vejni"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dg2f2"]
+shader = ExtResource("2_2p3mi")
+
 [sub_resource type="Gradient" id="Gradient_omkrh"]
-offsets = PackedFloat32Array(0.25974, 0.649351, 0.720779)
-colors = PackedColorArray(1, 1, 1, 1, 0.345455, 0.345455, 0.345455, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.694805)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_40tgn"]
 gradient = SubResource("Gradient_omkrh")
@@ -106,8 +110,10 @@ metadata/_edit_group_ = true
 
 [node name="SpotLight" type="PointLight2D" parent="."]
 visible = false
+material = SubResource("ShaderMaterial_dg2f2")
 rotation = -1.5708
 scale = Vector2(1, 1.429)
+shadow_enabled = true
 texture = ExtResource("2_cu18p")
 offset = Vector2(0, 192)
 texture_scale = 3.0

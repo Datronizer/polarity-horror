@@ -1,47 +1,64 @@
-[gd_scene load_steps=8 format=3 uid="uid://cchobkkojldml"]
+[gd_scene load_steps=13 format=3 uid="uid://cchobkkojldml"]
 
 [ext_resource type="PackedScene" uid="uid://djqg1k7ty7uvw" path="res://entities/player.tscn" id="1_5uh38"]
-[ext_resource type="Script" path="res://scripts/Main.cs" id="1_5y3rf"]
-[ext_resource type="PackedScene" uid="uid://beuhqlvjmj008" path="res://entities/rootMonster.tscn" id="2_42qir"]
-[ext_resource type="Texture2D" uid="uid://bolej8haq47pg" path="res://art/bg/background.png" id="3_303bj"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_5y3rf"]
+[ext_resource type="PackedScene" uid="uid://b30kminia4lyl" path="res://scenes/map.tscn" id="3_rlflp"]
 [ext_resource type="PackedScene" uid="uid://46hjkofgbi81" path="res://components/hud.tscn" id="4_meq47"]
-[ext_resource type="PackedScene" uid="uid://dure3sgh0ikge" path="res://components/inventoryHud.tscn" id="4_n3f4i"]
+[ext_resource type="PackedScene" uid="uid://dure3sgh0ikge" path="res://components/inventory_hud.tscn" id="4_n3f4i"]
 [ext_resource type="PackedScene" uid="uid://nbchdhc66slr" path="res://entities/wendigo.tscn" id="6_ppfnh"]
+
+[sub_resource type="Gradient" id="Gradient_nevjs"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y4ps3"]
+seed = -1
+frequency = 0.03
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4dnyj"]
+color_ramp = SubResource("Gradient_nevjs")
+noise = SubResource("FastNoiseLite_y4ps3")
+
+[sub_resource type="Gradient" id="Gradient_gqws0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6vg8t"]
+frequency = 0.4015
+fractal_gain = 1.365
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wgs2v"]
+color_ramp = SubResource("Gradient_gqws0")
+noise = SubResource("FastNoiseLite_6vg8t")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_5y3rf")
-MobScene = ExtResource("2_42qir")
 
-[node name="HUD" parent="." instance=ExtResource("4_meq47")]
-visible = false
-
-[node name="InventoryHud" parent="." instance=ExtResource("4_n3f4i")]
-visible = false
+[node name="Map" parent="." instance=ExtResource("3_rlflp")]
+noise_texture = SubResource("NoiseTexture2D_4dnyj")
+tree_noise_texture = SubResource("NoiseTexture2D_wgs2v")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
-color = Color(0, 0, 0, 1)
-
-[node name="GrassBg" type="TextureRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_303bj")
-expand_mode = 2
+color = Color(1, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_5uh38")]
-Speed = 100
 
 [node name="Wendigo" parent="." instance=ExtResource("6_ppfnh")]
-position = Vector2(592, 192)
+position = Vector2(272, -104)
 
 [node name="StartPosition" type="Marker2D" parent="."]
+visible = false
 position = Vector2(200, 200)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 blend_mode = 1
 
-[connection signal="Hit" from="Player" to="." method="GameOver"]
-[connection signal="LightHit" from="Player" to="." method="OnLightHit"]
+[node name="HUD" parent="." instance=ExtResource("4_meq47")]
+offset = Vector2(-310, 0)
+transform = Transform2D(1, 0, 0, 1, -310, 0)
+
+[node name="InventoryHud" parent="." instance=ExtResource("4_n3f4i")]
+offset = Vector2(520, 180)
+transform = Transform2D(1, 0, 0, 1, 520, 180)
+
+[connection signal="aim" from="Player" to="." method="_on_player_aim"]
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="light_strength" from="InventoryHud" to="." method="_on_inventory_hud_light_strength"]

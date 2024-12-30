@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=4 uid="uid://b30kminia4lyl"]
+
+[ext_resource type="Script" path="res://scripts/map.gd" id="1_f8u1u"]
+[ext_resource type="TileSet" uid="uid://uqmfqe0x50jo" path="res://scenes/map.tres" id="2_x6dm1"]
+
+[sub_resource type="Gradient" id="Gradient_7u5cf"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.484582, 0.77533)
+colors = PackedColorArray(4.59649e-06, 0.577307, 0.0495485, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iqmeb"]
+seed = 3
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d6ngp"]
+color_ramp = SubResource("Gradient_7u5cf")
+noise = SubResource("FastNoiseLite_iqmeb")
+
+[sub_resource type="Gradient" id="Gradient_nopng"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.814978)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a0aqu"]
+frequency = 0.35
+fractal_gain = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6sygw"]
+color_ramp = SubResource("Gradient_nopng")
+noise = SubResource("FastNoiseLite_a0aqu")
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_f8u1u")
+noiseTexture = SubResource("NoiseTexture2D_d6ngp")
+treeNoiseTexture = SubResource("NoiseTexture2D_6sygw")
+
+[node name="PlainGrassLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD8//7/AQAIAAYAAAD8////AQAIAAYAAAD8/wAAAQAIAAYAAAD8/wEAAQAIAAYAAAD9/wEAAQADAAMAAAD+/wEAAQAEAAMAAAD//wEAAQAIAAYAAAD//wIAAQAIAAYAAAAAAAIAAQAIAAYAAAABAAEAAQAIAAYAAAACAAEAAQAIAAYAAAACAAAAAQAIAAYAAAACAP//AQAEAAMAAAACAP7/AQAEAAIAAAABAP7/AQADAAIAAAAAAP7/AQAIAAYAAAD///7/AQAIAAYAAAD+//7/AQAIAAYAAAD+////AQAIAAYAAAD+/wAAAQAEAAIAAAABAAAAAQAIAAYAAAABAP//AQADAAMAAAD//wAAAQAIAAYAAAAAAAAAAQAIAAYAAAAAAP//AQAIAAYAAAD/////AQAIAAYAAAAAAAEAAQAIAAYAAAD9//7/AQAIAAYAAAD9////AQAIAAYAAAD8/wIAAQAIAAYAAAD9/wIAAQAIAAYAAAD9/wAAAQADAAIAAAD+/wIAAQAIAAYAAAA=")
+tile_set = ExtResource("2_x6dm1")
+y_sort_origin = -1
+collision_enabled = false
+
+[node name="PlainGrassLayer2" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD8//7/AQAIAAYAAAD8////AQAIAAYAAAD8/wAAAQAIAAYAAAD8/wEAAQAIAAYAAAD9/wEAAQADAAMAAAD+/wEAAQAEAAMAAAD//wEAAQAIAAYAAAD//wIAAQAIAAYAAAAAAAIAAQAIAAYAAAABAAEAAQAIAAYAAAACAAEAAQAIAAYAAAACAAAAAQAIAAYAAAACAP//AQAEAAMAAAACAP7/AQAEAAIAAAABAP7/AQADAAIAAAAAAP7/AQAIAAYAAAD///7/AQAIAAYAAAD+//7/AQAIAAYAAAD+////AQAIAAYAAAD+/wAAAQAEAAIAAAABAAAAAQAIAAYAAAABAP//AQADAAMAAAD//wAAAQAIAAYAAAAAAAAAAQAIAAYAAAAAAP//AQAIAAYAAAD/////AQAIAAYAAAAAAAEAAQAIAAYAAAD9//7/AQAIAAYAAAD9////AQAIAAYAAAD8/wIAAQAIAAYAAAD9/wIAAQAIAAYAAAD9/wAAAQADAAIAAAD+/wIAAQAIAAYAAAA=")
+tile_set = ExtResource("2_x6dm1")
+collision_enabled = false
+
+[node name="GrassBrushLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_x6dm1")
+y_sort_origin = 1
+
+[node name="TreeLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_x6dm1")
+y_sort_origin = 2

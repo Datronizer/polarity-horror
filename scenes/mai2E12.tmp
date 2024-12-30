@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://cchobkkojldml"]
+
+[ext_resource type="PackedScene" uid="uid://djqg1k7ty7uvw" path="res://entities/player.tscn" id="1_5uh38"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_5y3rf"]
+[ext_resource type="Texture2D" uid="uid://bolej8haq47pg" path="res://art/bg/background.png" id="3_303bj"]
+[ext_resource type="PackedScene" uid="uid://b30kminia4lyl" path="res://scenes/map.tscn" id="3_rlflp"]
+[ext_resource type="PackedScene" uid="uid://46hjkofgbi81" path="res://components/hud.tscn" id="4_meq47"]
+[ext_resource type="PackedScene" uid="uid://dure3sgh0ikge" path="res://components/inventory_hud.tscn" id="4_n3f4i"]
+[ext_resource type="PackedScene" uid="uid://nbchdhc66slr" path="res://entities/wendigo.tscn" id="6_ppfnh"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_5y3rf")
+
+[node name="Map" parent="." instance=ExtResource("3_rlflp")]
+script = null
+
+[node name="HUD" parent="." instance=ExtResource("4_meq47")]
+visible = false
+script = null
+
+[node name="InventoryHud" parent="." instance=ExtResource("4_n3f4i")]
+script = null
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(1, 0, 0, 1)
+
+[node name="GrassBg" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_303bj")
+expand_mode = 2
+
+[node name="Player" parent="." instance=ExtResource("1_5uh38")]
+script = null
+
+[node name="Wendigo" parent="." instance=ExtResource("6_ppfnh")]
+position = Vector2(592, 192)
+script = null
+
+[node name="StartPosition" type="Marker2D" parent="."]
+visible = false
+position = Vector2(200, 200)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+blend_mode = 1
