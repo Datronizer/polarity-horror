@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://djqg1k7ty7uvw"]
+[gd_scene load_steps=14 format=3 uid="uid://djqg1k7ty7uvw"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_h18vl"]
 [ext_resource type="Texture2D" uid="uid://bon4mkha56e7l" path="res://art/mobs/player/character-idle.png" id="2_txppf"]
@@ -70,11 +70,11 @@ animations = [{
 radius = 10.5
 height = 45.0
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_rnk0p"]
-
 [node name="Player" type="Area2D"]
+input_pickable = false
 script = ExtResource("1_h18vl")
 Speed = 125
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -83,6 +83,7 @@ animation = &"walk_3"
 frame_progress = 0.110833
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-2.5, -1.5)
 shape = SubResource("CapsuleShape2D_xo08s")
 
@@ -90,20 +91,9 @@ shape = SubResource("CapsuleShape2D_xo08s")
 position_smoothing_enabled = true
 
 [node name="Lantern" parent="." instance=ExtResource("5_yudkg")]
-position = Vector2(12, 6)
-
-[node name="Skeleton2D" type="Skeleton2D" parent="."]
-visible = false
-modification_stack = SubResource("SkeletonModificationStack2D_rnk0p")
-
-[node name="Bone2D" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(0, 22)
-rotation = -1.5708
-scale = Vector2(1.435, 1.435)
-
-[node name="Bone2D2" type="Bone2D" parent="Skeleton2D"]
-rotation = 0.514872
-scale = Vector2(0.999999, 0.999999)
+position = Vector2(13.6685, 10.9079)
 
 [connection signal="Aim" from="." to="Lantern" method="OnPlayerAim"]
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="LightAim" from="Lantern" to="." method="RotateArm"]
+[connection signal="LightHit" from="Lantern" to="." method="OnLightHit"]

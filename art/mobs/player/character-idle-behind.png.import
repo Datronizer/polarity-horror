@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cictisdgxrvnw"
-path="res://.godot/imported/flashlight-beam.png-7060aa45f8cd78b8aa5e323e56f90577.ctex"
+uid="uid://tjcekhl2kswo"
+path="res://.godot/imported/character-idle-behind.png-568a32dbeab759d3380c588a5645a25c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/props/flashlight-beam.png"
-dest_files=["res://.godot/imported/flashlight-beam.png-7060aa45f8cd78b8aa5e323e56f90577.ctex"]
+source_file="res://art/mobs/player/character-idle-behind.png"
+dest_files=["res://.godot/imported/character-idle-behind.png-568a32dbeab759d3380c588a5645a25c.ctex"]
 
 [params]
 

@@ -6,6 +6,8 @@ public partial class Player : Area2D
 	[Signal]
 	public delegate void HitEventHandler();
 	[Signal]
+	public delegate void LightHitEventHandler(Node2D monsterHit);
+	[Signal]
 	public delegate void AimEventHandler(Vector2 mousePos);
 
 
@@ -13,9 +15,13 @@ public partial class Player : Area2D
 	public int Speed = 100; // How fast the player will move (pixels/sec).
 
 
+	public Skeleton2D Skeleton;
 	public Vector2 ScreenSize; // Size of the game window.
 	private Camera2D Camera;
+	private Lantern Lantern;
 	private bool isAiming = false;
+	private bool lastTurnDirection = false;
+	private bool isTurnDirectionChanged = false;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -23,6 +29,7 @@ public partial class Player : Area2D
 	{
 		ScreenSize = GetViewportRect().Size;
 		Camera = GetNode<Camera2D>("Camera2D");
+		Lantern = GetNode<Lantern>("Lantern");
 
 		Hide();
 	}
@@ -30,6 +37,8 @@ public partial class Player : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		Lantern.Rotation = 0;
+
 		var velocity = Vector2.Zero; // The player's movement vector.
 		if (isAiming)
 		{
@@ -74,6 +83,7 @@ public partial class Player : Area2D
 		}
 		#endregion
 
+		#region Animation
 		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
 		if (velocity.Length() > 0)
@@ -91,12 +101,19 @@ public partial class Player : Area2D
 			animatedSprite2D.FlipH = GetPlayerTurnDirection(velocity);
 		}
 
+		if (lastTurnDirection ^ GetPlayerTurnDirection(velocity))
+		{
+			Lantern.Position = new Vector2(-Lantern.Position.X, Lantern.Position.Y);
+		}
+		#endregion
+
 
 		Position += velocity * (float)delta;
 		Position = new Vector2(
 			x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
 			y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
 		);
+		lastTurnDirection = GetPlayerTurnDirection(velocity);
 	}
 
 	public void Start(Vector2 position)
@@ -106,7 +123,7 @@ public partial class Player : Area2D
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
 	}
 
-	// We also specified this function name in PascalCase in the editor's connection window.
+
 	private void OnBodyEntered(Node2D body)
 	{
 		Hide(); // Player disappears after being hit.
@@ -123,7 +140,7 @@ public partial class Player : Area2D
 	/// <returns>False if mouse is to the right of the player, True otherwise</returns>
 	private bool GetPlayerTurnDirection(Vector2 velocity)
 	{
-		var mousePos = GetViewport().GetMousePosition();
+		var mousePos = GetGlobalMousePosition();
 		var playerGlobalPos = GlobalPosition;
 		var middlePoint = (mousePos + playerGlobalPos) / 2;
 		var direction = middlePoint.X - playerGlobalPos.X;
@@ -163,4 +180,16 @@ public partial class Player : Area2D
 
 		Camera.GlobalPosition = middlePoint;
 	}
+	public void RotateArm()
+	{
+		Vector2 direction = new Vector2(Mathf.Cos(Mathf.Pi / 2), Mathf.Sin(Mathf.Pi / 2)).Normalized();
+		Lantern.LookAt(GetGlobalMousePosition() - direction);
+	}
+
+	#region Helpers
+	public void OnLightHit(Node2D monsterHit)
+	{
+		EmitSignal(SignalName.LightHit, monsterHit);
+	}
+	#endregion
 }

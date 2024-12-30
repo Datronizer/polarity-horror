@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://beuhqlvjmj008"]
+[gd_scene load_steps=8 format=3 uid="uid://beuhqlvjmj008"]
 
-[ext_resource type="Script" path="res://scripts/RootMonster.cs" id="1_2ibrj"]
 [ext_resource type="Texture2D" uid="uid://b5fow6k2qeeia" path="res://art/mobs/monsters/monster-meat.png" id="2_3y760"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_57rxc"]
@@ -45,7 +44,6 @@ size = Vector2(18.8505, 8.81859)
 [node name="RootMonster" type="RigidBody2D" groups=["mobs"]]
 collision_mask = 0
 gravity_scale = 0.0
-script = ExtResource("1_2ibrj")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

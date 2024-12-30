@@ -14,10 +14,17 @@ public abstract partial class RootMonster : RigidBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) { }
 
-	public void ApproachPlayer(Vector2 playerPos)
+	public void ApproachPlayer(Vector2 playerPos, double delta, int? approachSpeed = null)
 	{
+		var screenSize = GetViewportRect().Size;
 		var velocity = playerPos - GlobalPosition;
-		GlobalPosition += velocity.Normalized() * 1;
+		velocity = velocity.Normalized() * (approachSpeed ?? Speed);
+		
+		Position += velocity * (float)delta;
+		Position = new Vector2(
+			x: Mathf.Clamp(Position.X, 0, screenSize.X),
+			y: Mathf.Clamp(Position.Y, 0, screenSize.Y)
+		);
 
 		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		if (velocity.Length() > 0)
@@ -33,6 +40,9 @@ public abstract partial class RootMonster : RigidBody2D
 			animatedSprite2D.Play();
 		}
 	}
+
+
+	public abstract void OnHitByLight();
 
 	public abstract void Hunt(Vector2 playerPos);
 

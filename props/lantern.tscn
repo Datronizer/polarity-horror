@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbqixbup4pb5t"]
+[gd_scene load_steps=19 format=3 uid="uid://cbqixbup4pb5t"]
 
 [ext_resource type="Script" path="res://scripts/Lantern.cs" id="1_0erlf"]
-[ext_resource type="Texture2D" uid="uid://e00hchuiif7g" path="res://art/props/flashlight-beam.png" id="2_cu18p"]
+[ext_resource type="Texture2D" uid="uid://cictisdgxrvnw" path="res://art/props/flashlight-beam.png" id="2_cu18p"]
+[ext_resource type="Texture2D" uid="uid://cskkj1ey3j7qg" path="res://art/hud/lantern-icon.png" id="3_fonof"]
+[ext_resource type="Texture2D" uid="uid://qlsb3kqg0hvm" path="res://art/hud/flashlight-icon.png" id="4_vejni"]
 
 [sub_resource type="Gradient" id="Gradient_omkrh"]
 offsets = PackedFloat32Array(0.25974, 0.649351, 0.720779)
@@ -12,23 +14,130 @@ gradient = SubResource("Gradient_omkrh")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_u80oi"]
-points = PackedVector2Array(0, 0)
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1y0q"]
+atlas = ExtResource("3_fonof")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odoo3"]
+atlas = ExtResource("3_fonof")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf2tb"]
+atlas = ExtResource("3_fonof")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljtpm"]
+atlas = ExtResource("3_fonof")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_87ury"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1y0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odoo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf2tb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljtpm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_basnl"]
+atlas = ExtResource("4_vejni")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qgcm"]
+atlas = ExtResource("4_vejni")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdj3r"]
+atlas = ExtResource("4_vejni")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7dlc"]
+atlas = ExtResource("4_vejni")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhvto"]
+atlas = ExtResource("4_vejni")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nele7"]
+atlas = ExtResource("4_vejni")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7x2lm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_basnl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qgcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdj3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7dlc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhvto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nele7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Lantern" type="Node2D"]
 script = ExtResource("1_0erlf")
+metadata/_edit_group_ = true
 
 [node name="SpotLight" type="PointLight2D" parent="."]
+visible = false
 rotation = -1.5708
-scale = Vector2(3, 4)
+scale = Vector2(1, 1.429)
 texture = ExtResource("2_cu18p")
-offset = Vector2(0, 64)
+offset = Vector2(0, 192)
+texture_scale = 3.0
 
 [node name="AreaLight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(-0.44, 0)
 scale = Vector2(3.33, 3.33)
 texture = SubResource("GradientTexture2D_40tgn")
 
 [node name="Area2D" type="Area2D" parent="."]
+input_pickable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("ConvexPolygonShape2D_u80oi")
+[node name="LightConeCollision" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(0, 0, 512, 192, 512, -192)
+disabled = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 0)
+
+[node name="LanternSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-0.63, 0)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_87ury")
+
+[node name="FlashlightSprite" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_7x2lm")
+flip_h = true
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

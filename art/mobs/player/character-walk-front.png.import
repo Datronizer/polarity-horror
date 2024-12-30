@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cictisdgxrvnw"
-path="res://.godot/imported/flashlight-beam.png-7060aa45f8cd78b8aa5e323e56f90577.ctex"
+uid="uid://dmoo8y71pvp4p"
+path="res://.godot/imported/character-walk-front.png-7ea73051a0d2a412040f91849d5e1546.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/props/flashlight-beam.png"
-dest_files=["res://.godot/imported/flashlight-beam.png-7060aa45f8cd78b8aa5e323e56f90577.ctex"]
+source_file="res://art/mobs/player/character-walk-front.png"
+dest_files=["res://.godot/imported/character-walk-front.png-7ea73051a0d2a412040f91849d5e1546.ctex"]
 
 [params]
 

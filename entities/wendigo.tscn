@@ -58,10 +58,11 @@ animations = [{
 radius = 20.5
 height = 48.5
 
-[node name="Wendigo" type="RigidBody2D"]
+[node name="Wendigo" type="RigidBody2D" groups=["Monster"]]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_4kug3")
+metadata/_edit_group_ = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_ffono")
